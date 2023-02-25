@@ -1,5 +1,3 @@
-from graphviz import Digraph
-
 # Clase para la creacion de los nodos del AFN
 def check_expression_balanced(expression):
     # Balanceo de los parentesis en una expresion

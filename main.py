@@ -3,6 +3,8 @@
 #Laboratorio A
 
 from funcs import check_expression_balanced, convertOE, expandEx, infixToPostfix
+from thompson import thompson
+from graphs import to_graphviz, render_graphviz
 
 
 main_menu = '''
@@ -30,7 +32,6 @@ if option == '1':
         print('Expanded Infix: ', expandedInfix)
         print('Postfix: ', postfix)
         
-        # Crear el AFN con el algoritmo de Thompson y graficarlo
 elif option == '2':
     pass
 else:

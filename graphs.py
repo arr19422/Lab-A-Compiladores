@@ -4,13 +4,11 @@ def to_graphviz(nfa):
     """Generate DOT language code for the NFA."""
     dot = graphviz.Digraph()
 
-    for state in nfa.states:
-        dot.node(str(id(state)), label=state.label or "", shape="circle", style="bold" if state.accepting else "")
+    dot.node(str(id(nfa.q0)), label=nfa.q0 or "", shape="circle", style="bold" if nfa.q0 else "")
+    dot.node(str(id(nfa.f)), label=nfa.f or "", shape="circle", style="bold" if nfa.f else "")
 
-        for symbol, transitions in state.transitions.items():
-            for dest_state in transitions:
-                dot.edge(str(id(state)), str(id(dest_state)), label=symbol if symbol is not None else "ε")
-
+    for transition in nfa.transitions:
+        dot.edge(str(transition.start), str(transition.end), label=str(transition.transition))
     return dot.source
 
 def render_graphviz(dot_source):

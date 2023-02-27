@@ -3,7 +3,7 @@
 #Laboratorio A
 
 from funcs import check_expression_balanced, convertOE, expandEx, infixToPostfix
-from thompson import thompson
+from thompson_algorithm import thomspson
 from graphs import to_graphviz, render_graphviz
 
 
@@ -31,6 +31,14 @@ if option == '1':
         print('Infix: ', infix)
         print('Expanded Infix: ', expandedInfix)
         print('Postfix: ', postfix)
+        
+        nfa = thomspson(postfix)
+        
+        print('NFA: ', nfa.q0)
+        print('NFA: ', nfa.f)
+        
+        dot_source = to_graphviz(nfa)
+        filename = render_graphviz(dot_source)
         
 elif option == '2':
     pass

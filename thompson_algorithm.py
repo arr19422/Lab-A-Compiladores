@@ -2,7 +2,7 @@ from transition import *
 from automata import *
 
 # ref: https://github.com/niemaattarian/Thompsons-Construction-on-NFAs
-# ref: https://github.com/niemaattarian/Thompsons-Construction-on-NFAs/blob/master/Project.py
+# ref: https://github.com/OJP98/py-finite-automata
 
 # Thomspson's algorithm for postfix expressions
 
@@ -29,7 +29,6 @@ def thomspson(postfix):
 
                 element2 = stack.pop()
                 element1 = stack.pop()
-
                 new_transitions = []
                 element2_transitions = []
 
@@ -58,8 +57,8 @@ def thomspson(postfix):
                                     q0=element1.q0, f=element2.f, transitions=current_transitions)
                 stack.append(automata)
 
-            if (c == '|' or c == '?'):
-                # si el caracter a evaluar no es un operador | o ?, que es un or, creamos un automata con un estado inicial y final
+            if (c == '|'):
+                # si el caracter a evaluar no es un operador |, que es un or, creamos un automata con un estado inicial y final
 
                 element2 = stack.pop()
                 element1 = stack.pop()
@@ -87,12 +86,11 @@ def thomspson(postfix):
                 current_expression = '(' + element1.expression + \
                     '|' + element2.expression + ')'
                 current_alphabet = element1.alphabet + element2.alphabet
-
                 automata = Automata(q=current_states, expression=current_expression, alphabet=current_alphabet,
                                     q0=initial_state, f=final_state, transitions=current_transitions)
                 stack.append(automata)
 
-            if (c == '*' or c == '+'):
+            if (c == '*'):
                 # si el caracter a evaluar no es un operador *, creamos un automata con un estado inicial y final
                 element = stack.pop()
                 initial_state = str(counter)

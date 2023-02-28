@@ -37,15 +37,24 @@ def convertOE(regex):
     new = []
     stack = []
     for char in regex:
+        print("char", char)
         if char != "?" and char != "+":
             new.append(char)
             stack.append(char)
         # Si la expresion tiene un ? lo reemplaza por ( |ε)
         elif char == "?":
             x = stack.pop()
-            new.pop()
-            new.append(str("("+x+"|ε)"))
-            stack = []
+            if x == ")": # Si es un parentesis, se agrega el operador
+                new.pop()
+                op = new.pop()
+                new.append(str(op+"|ε)"))
+            elif x == "(":  # Si es un parentesis, se agrega el operador
+                new.append(str(x+"|ε"))
+            else: # Si es un simbolo, se agrega el operador
+                new.pop()
+                new.append(str("("+x+"|ε)"))
+                stack = []
+                
         # Si la expresion tiene un + lo reemplaza por el patron previo ( ( *))
         elif char == "+":
             x = stack.pop()
@@ -86,12 +95,10 @@ def expandEx(infix):
 
 # Pasa la expresion infix a postfix
 def infixToPostfix(expandedInfix):
-    print("Infix: ", expandedInfix)
     stack = []
     output = []
     operators = ['.', '|', '*', '(', ')']
     for char in expandedInfix:
-        print("char: ", char)
         if char not in operators:
             output.append(char)
         elif char == '(':

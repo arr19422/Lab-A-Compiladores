@@ -3,7 +3,7 @@ import graphviz
 def to_graphviz(nfa):
     """Generate DOT language code for the NFA."""
     dot = graphviz.Digraph()
-
+    dot.attr(rankdir='LR')
     dot.node(str(id(nfa.q0)), label=nfa.q0 or "", shape="circle", style="bold" if nfa.q0 else "")
     dot.node(str(id(nfa.f)), label=nfa.f or "", shape="circle", style="bold" if nfa.f else "")
 
